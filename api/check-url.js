@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
 
   const { url } = req.body;
@@ -17,19 +17,19 @@ export default async function handler(req, res) {
       {
         client: {
           clientId: "fraudshield",
-          clientVersion: "1.0",
+          clientVersion: "1.0"
         },
         threatInfo: {
           threatTypes: [
             "MALWARE",
             "SOCIAL_ENGINEERING",
             "UNWANTED_SOFTWARE",
-            "POTENTIALLY_HARMFUL_APPLICATION",
+            "POTENTIALLY_HARMFUL_APPLICATION"
           ],
           platformTypes: ["ANY_PLATFORM"],
           threatEntryTypes: ["URL"],
-          threatEntries: [{ url }],
-        },
+          threatEntries: [{ url }]
+        }
       }
     );
 
@@ -40,6 +40,7 @@ export default async function handler(req, res) {
     return res.status(200).json({ status: "safe" });
 
   } catch (error) {
-    return res.status(500).json({ error: "API error" });
+    console.error(error);
+    return res.status(500).json({ error: "API Error" });
   }
 }
